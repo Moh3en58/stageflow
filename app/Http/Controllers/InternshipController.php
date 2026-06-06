@@ -18,18 +18,28 @@ class InternshipController extends Controller
 }    /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+  public function create()
+{
+    return view('internships.create');
+}
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function store(Request $request)
+{
+    Internship::create([
+        'user_id' => auth()->id(),
+        'company_id' => 1,
+        'title' => $request->title,
+        'description' => $request->description,
+        'start_date' => $request->start_date,
+        'end_date' => $request->end_date,
+        'status' => 'pending',
+    ]);
+
+    return redirect()->route('internships.index');
+}
 
     /**
      * Display the specified resource.
@@ -42,24 +52,33 @@ class InternshipController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(Internship $internship)
+{
+    return view('internships.edit', compact('internship'));
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+   public function update(Request $request, Internship $internship)
+{
+    $internship->update([
+        'title' => $request->title,
+        'description' => $request->description,
+        'start_date' => $request->start_date,
+        'end_date' => $request->end_date,
+    ]);
+
+    return redirect()->route('internships.index');
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(Internship $internship)
+{
+    $internship->delete();
+
+    return redirect()->route('internships.index');
+}
 }

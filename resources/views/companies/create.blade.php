@@ -1,0 +1,20 @@
+<x-app-layout>
+    <div class="p-6">
+        <h1 class="text-xl font-bold mb-4">Create Company</h1>
+
+      <form method="POST" action="{{ route('companies.store') }}">
+            @csrf
+
+            <div>
+                <label>Name</label><br>
+                <input type="text" name="name">
+            </div>
+
+            <br>
+
+            <button type="submit">
+                Save
+            </button>
+        </form>
+    </div>
+</x-app-layout>
