@@ -13,13 +13,17 @@
 
 <div class="grid grid-cols-2 gap-4">
     <div class="p-4 bg-blue-100 rounded">
-        <h3 class="font-bold">Internships</h3>
-        <p>Manage internships</p>
+        <a href="{{ route('internships.index') }}">
+    <h3 class="font-bold">Internships</h3>
+    <p>Manage internships</p>
+</a>
     </div>
 
     <div class="p-4 bg-green-100 rounded">
-        <h3 class="font-bold">Logbooks</h3>
-        <p>Weekly reports</p>
+       <a href="{{ route('logbooks.index') }}">
+    <h3 class="font-bold">Logbooks</h3>
+    <p>Weekly reports</p>
+</a>
     </div>
 
     <div class="p-4 bg-yellow-100 rounded">
@@ -28,8 +32,10 @@
     </div>
 
     <div class="p-4 bg-purple-100 rounded">
-        <h3 class="font-bold">Companies</h3>
-        <p>Partner companies</p>
+        <a href="{{ route('companies.index') }}">
+    <h3 class="font-bold">Companies</h3>
+    <p>Partner companies</p>
+</a>
     </div>
 </div>
                 </div>

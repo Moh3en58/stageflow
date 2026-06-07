@@ -11,9 +11,9 @@ class CompanyController extends Controller
      */
   public function index()
 {
-    $competencies = Competency::all();
+    $companies = \App\Models\Company::all();
 
-    return view('competencies.index', compact('competencies'));
+    return view('companies.index', compact('companies'));
 }
 
     /**
