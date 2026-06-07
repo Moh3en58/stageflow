@@ -1,19 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Logbook;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class LogbookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-  public function index()
+   public function index()
 {
-    $competencies = Competency::all();
-
-    return view('competencies.index', compact('competencies'));
+    return view('logbooks.index');
 }
 
     /**
@@ -21,23 +19,17 @@ class CompanyController extends Controller
      */
    public function create()
 {
-    return view('competencies.create');
+    return view('logbooks.create');
 }
 
     /**
      * Store a newly created resource in storage.
      */
-  public function store(Request $request)
+   public function store(Request $request)
 {
-    Competency::create([
-        'title' => $request->title,
-        'description' => $request->description,
-        'weight' => $request->weight ?? 1,
-        'active' => true,
-    ]);
-
-    return redirect()->route('competencies.index');
+    return redirect()->route('logbooks.index');
 }
+
     /**
      * Display the specified resource.
      */

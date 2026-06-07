@@ -3,7 +3,8 @@ use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CompetencyController;
+use App\Http\Controllers\LogbookController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,7 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('internships', InternshipController::class);
     Route::resource('companies', CompanyController::class);
-
+Route::resource('competencies', CompetencyController::class);
+Route::resource('logbooks', LogbookController::class);
 });
 
 require __DIR__.'/auth.php';

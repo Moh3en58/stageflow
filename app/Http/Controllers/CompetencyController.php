@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competency;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class CompetencyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-  public function index()
+    public function index()
 {
     $competencies = Competency::all();
 
@@ -27,17 +28,18 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-  public function store(Request $request)
+   public function store(Request $request)
 {
     Competency::create([
         'title' => $request->title,
         'description' => $request->description,
-        'weight' => $request->weight ?? 1,
+        'weight' => 1,
         'active' => true,
     ]);
 
     return redirect()->route('competencies.index');
 }
+
     /**
      * Display the specified resource.
      */
