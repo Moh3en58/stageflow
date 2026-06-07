@@ -19,6 +19,8 @@
     <button type="submit">Delete</button>
 </form>
                 <strong>{{ $internship->title }}</strong><br>
+                <br>
+Company: {{ $internship->company->name ?? 'N/A' }}
                 {{ $internship->description }}<br>
                 {{ $internship->start_date }} - {{ $internship->end_date }}<br>
                 Status: {{ $internship->status }}

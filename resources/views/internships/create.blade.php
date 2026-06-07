@@ -10,6 +10,17 @@
             @csrf
 
             <div>
+                <div>
+    <label>Company</label><br>
+
+    <select name="company_id">
+        @foreach($companies as $company)
+            <option value="{{ $company->id }}">
+                {{ $company->name }}
+            </option>
+        @endforeach
+    </select>
+</div>
                 <label>Title</label><br>
                 <input type="text" name="title" class="border p-2 w-full">
             </div>

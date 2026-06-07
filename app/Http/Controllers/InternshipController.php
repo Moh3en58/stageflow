@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Internship;
 use Illuminate\Http\Request;
-
+use App\Models\Company;
 class InternshipController extends Controller
 {
     /**
@@ -20,7 +20,9 @@ class InternshipController extends Controller
      */
   public function create()
 {
-    return view('internships.create');
+    $companies = Company::all();
+
+    return view('internships.create', compact('companies'));
 }
 
     /**
@@ -30,7 +32,7 @@ class InternshipController extends Controller
 {
     Internship::create([
         'user_id' => auth()->id(),
-        'company_id' => 1,
+    'company_id' => $request->company_id,
         'title' => $request->title,
         'description' => $request->description,
         'start_date' => $request->start_date,
