@@ -26,10 +26,12 @@
 </a>
     </div>
 
-    <div class="p-4 bg-yellow-100 rounded">
-        <h3 class="font-bold">Evaluations</h3>
-        <p>Assessment system</p>
-    </div>
+   <div class="p-4 bg-yellow-100 rounded">
+    <a href="{{ route('competencies.index') }}">
+        <h3 class="font-bold">Competencies</h3>
+        <p>Skills tracking</p>
+    </a>
+</div>
 
     <div class="p-4 bg-purple-100 rounded">
         <a href="{{ route('companies.index') }}">
