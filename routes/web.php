@@ -6,6 +6,7 @@ use App\Http\Controllers\InternshipController;
 use App\Http\Controllers\LogbookController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StageProposalController;
+use App\Http\Controllers\EvaluationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
     )->name('stage-proposals.reject');
 
     Route::resource('stage-proposals', StageProposalController::class);
+    Route::resource('evaluations', EvaluationController::class);
 });
 
 require __DIR__.'/auth.php';
