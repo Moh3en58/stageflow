@@ -86,6 +86,31 @@
                             </div>
                         @endif
 
+                        {{-- Final grades --}}
+                        @if(in_array($user->role, ['student', 'teacher', 'admin'], true))
+                            <div class="rounded-lg bg-purple-100 p-4">
+                                <a href="{{ route('final-grades.index') }}">
+                                    <h3 class="font-bold">
+                                        @if($user->role === 'student')
+                                            My Final Grade
+                                        @else
+                                            Final Grades
+                                        @endif
+                                    </h3>
+
+                                    <p>
+                                        @if($user->role === 'student')
+                                            View your final internship grade
+                                        @elseif($user->role === 'teacher')
+                                            Register and manage final internship grades
+                                        @else
+                                            View and manage final grades
+                                        @endif
+                                    </p>
+                                </a>
+                            </div>
+                        @endif
+
                         {{-- Internships --}}
                         @if(in_array($user->role, ['student', 'mentor', 'teacher', 'admin'], true))
                             <div class="rounded-lg bg-blue-100 p-4">

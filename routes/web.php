@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\FinalGradeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompetencyController;
 use App\Http\Controllers\InternshipController;
@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('stage-proposals', StageProposalController::class);
     Route::resource('evaluations', EvaluationController::class);
+    Route::resource('final-grades', FinalGradeController::class);
 });
 
 require __DIR__.'/auth.php';
