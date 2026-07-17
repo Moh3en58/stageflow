@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StageProposalController;
 use App\Http\Controllers\EvaluationController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserManagementController;
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('stage-proposals', StageProposalController::class);
     Route::resource('evaluations', EvaluationController::class);
     Route::resource('final-grades', FinalGradeController::class);
+    Route::resource('users', UserManagementController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -27,6 +27,21 @@
 
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 
+                        {{-- Admin user management --}}
+                        @if($user->role === 'admin')
+                            <div class="rounded-lg bg-red-100 p-4">
+                                <a href="{{ route('users.index') }}">
+                                    <h3 class="font-bold">
+                                        User Management
+                                    </h3>
+
+                                    <p>
+                                        Create users, edit accounts and manage roles
+                                    </p>
+                                </a>
+                            </div>
+                        @endif
+
                         {{-- Student stage proposals --}}
                         @if($user->role === 'student')
                             <div class="rounded-lg bg-indigo-100 p-4">
