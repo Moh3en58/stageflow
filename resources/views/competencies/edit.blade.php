@@ -11,7 +11,6 @@
             border: 1px solid #e5e7eb;
             border-radius: 10px;
             background-color: #ffffff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .form-group {
@@ -21,7 +20,6 @@
         .form-label {
             display: block;
             margin-bottom: 6px;
-            color: #374151;
             font-weight: 600;
         }
 
@@ -37,48 +35,16 @@
             justify-content: flex-end;
             gap: 10px;
         }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            border-radius: 7px;
-            padding: 10px 16px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background-color: #4f46e5;
-            color: #ffffff !important;
-        }
-
-        .btn-secondary {
-            border: 1px solid #d1d5db;
-            background-color: #ffffff;
-            color: #374151 !important;
-        }
-
-        .error-box {
-            margin-bottom: 20px;
-            padding: 14px;
-            border: 1px solid #fca5a5;
-            border-radius: 8px;
-            background-color: #fef2f2;
-            color: #991b1b;
-        }
     </style>
 
     <div class="form-page">
         <h1 style="font-size: 26px; font-weight: 700; margin-bottom: 24px;">
-            Create Competency
+            Edit Competency
         </h1>
 
         @if ($errors->any())
-            <div class="error-box">
-                <ul style="margin: 0; padding-left: 20px;">
+            <div style="margin-bottom: 20px; padding: 14px; background: #fef2f2; color: #991b1b; border-radius: 8px;">
+                <ul style="padding-left: 20px;">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -87,8 +53,12 @@
         @endif
 
         <div class="form-card">
-            <form method="POST" action="{{ route('competencies.store') }}">
+            <form
+                method="POST"
+                action="{{ route('competencies.update', $competency) }}"
+            >
                 @csrf
+                @method('PUT')
 
                 <div class="form-group">
                     <label for="title" class="form-label">
@@ -99,7 +69,7 @@
                         id="title"
                         type="text"
                         name="title"
-                        value="{{ old('title') }}"
+                        value="{{ old('title', $competency->title) }}"
                         required
                         class="form-control"
                     >
@@ -115,7 +85,7 @@
                         name="description"
                         rows="5"
                         class="form-control"
-                    >{{ old('description') }}</textarea>
+                    >{{ old('description', $competency->description) }}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -127,7 +97,7 @@
                         id="weight"
                         type="number"
                         name="weight"
-                        value="{{ old('weight', 1) }}"
+                        value="{{ old('weight', $competency->weight) }}"
                         min="1"
                         max="100"
                         required
@@ -141,7 +111,7 @@
                             type="checkbox"
                             name="active"
                             value="1"
-                            {{ old('active', true) ? 'checked' : '' }}
+                            {{ old('active', $competency->active) ? 'checked' : '' }}
                         >
 
                         Active
@@ -151,13 +121,16 @@
                 <div class="form-actions">
                     <a
                         href="{{ route('competencies.index') }}"
-                        class="btn btn-secondary"
+                        style="border: 1px solid #d1d5db; color: #374151; padding: 10px 16px; border-radius: 7px; text-decoration: none;"
                     >
                         Cancel
                     </a>
 
-                    <button type="submit" class="btn btn-primary">
-                        Save Competency
+                    <button
+                        type="submit"
+                        style="border: none; background: #4f46e5; color: white; padding: 10px 16px; border-radius: 7px; cursor: pointer;"
+                    >
+                        Update Competency
                     </button>
                 </div>
             </form>

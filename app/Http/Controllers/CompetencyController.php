@@ -7,68 +7,100 @@ use Illuminate\Http\Request;
 
 class CompetencyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-{
-    $competencies = Competency::all();
-
-    return view('competencies.index', compact('competencies'));
-}
-
-    /**
-     * Show the form for creating a new resource.
-     */
-   public function create()
-{
-    return view('competencies.create');
-}
-
-    /**
-     * Store a newly created resource in storage.
-     */
-   public function store(Request $request)
-{
-    Competency::create([
-        'title' => $request->title,
-        'description' => $request->description,
-        'weight' => 1,
-        'active' => true,
-    ]);
-
-    return redirect()->route('competencies.index');
-}
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
     {
-        //
+        $this->authorizeManagement();
+
+        $competencies = Competency::orderBy('title')->get();
+
+        return view('competencies.index', compact('competencies'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function create()
     {
-        //
+        $this->authorizeManagement();
+
+        return view('competencies.create');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function store(Request $request)
     {
-        //
+        $this->authorizeManagement();
+
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:2000'],
+            'weight' => ['required', 'integer', 'min:1', 'max:100'],
+            'active' => ['nullable', 'boolean'],
+        ]);
+
+        $validated['active'] = $request->boolean('active');
+
+        Competency::create($validated);
+
+        return redirect()
+            ->route('competencies.index')
+            ->with('success', 'Competency created successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function show(Competency $competency)
     {
-        //
+        $this->authorizeManagement();
+
+        return view('competencies.show', compact('competency'));
+    }
+
+    public function edit(Competency $competency)
+    {
+        $this->authorizeManagement();
+
+        return view('competencies.edit', compact('competency'));
+    }
+
+    public function update(Request $request, Competency $competency)
+    {
+        $this->authorizeManagement();
+
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:2000'],
+            'weight' => ['required', 'integer', 'min:1', 'max:100'],
+            'active' => ['nullable', 'boolean'],
+        ]);
+
+        $validated['active'] = $request->boolean('active');
+
+        $competency->update($validated);
+
+        return redirect()
+            ->route('competencies.index')
+            ->with('success', 'Competency updated successfully.');
+    }
+
+    public function destroy(Competency $competency)
+    {
+        $this->authorizeManagement();
+
+        if ($competency->evaluationScores()->exists()) {
+            return redirect()
+                ->route('competencies.index')
+                ->with(
+                    'error',
+                    'This competency cannot be deleted because it is already used in evaluations.'
+                );
+        }
+
+        $competency->delete();
+
+        return redirect()
+            ->route('competencies.index')
+            ->with('success', 'Competency deleted successfully.');
+    }
+
+    private function authorizeManagement(): void
+    {
+        if (!in_array(auth()->user()->role, ['admin', 'teacher'], true)) {
+            abort(403, 'You are not allowed to manage competencies.');
+        }
     }
 }
